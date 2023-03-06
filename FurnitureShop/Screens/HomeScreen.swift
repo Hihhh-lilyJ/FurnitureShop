@@ -8,6 +8,12 @@
 
 import SwiftUI
 
+extension View {
+    func dismissKeyboard() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+    }
+}
+
 struct HomeScreen: View {
     @State private var search: String = ""
     @State private var selectedIndex: Int = 1
@@ -81,6 +87,8 @@ struct HomeScreen: View {
                     BottomNavBarView()
                 }
             }
+            .onTapGesture {
+                self.dismissKeyboard()}
         }
 //        .navigationBarTitle("") //this must be empty
 //        .navigationBarHidden(true)
@@ -151,7 +159,7 @@ struct SearchAndScanView: View {
                     .frame(width: 30, height: 30)
                     .padding()
                     .background(Color.white)
-//                    .background(Color("Primary"))
+//                    .background(Color("primary"))
                     .cornerRadius(10.0)
             }
         }
@@ -214,10 +222,8 @@ struct BottomNavBarView: View {
             BottomNavBarItem(image: Image("Home"), action: {})
             BottomNavBarItem(image: Image("fav 1"), action: {})
             BottomNavBarItem(image: Image("shop 1"), action: {})
-//            BottomNavBarItem(image: Image("shop"),action: {})
             BottomNavBarItem(image: Image("User"), action: {})
         }
-        
         .padding()
         .background(Color.white)
         .clipShape(Capsule())
@@ -236,4 +242,3 @@ struct BottomNavBarItem: View {
         }
     }
 }
-
